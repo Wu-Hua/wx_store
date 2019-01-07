@@ -1,0 +1,24 @@
+<!--pages/add-comment/add-comment.wxml-->
+<view class='product-card'>
+  <image class='product-image' src='{{product.image}}'></image>
+  <view class='product-info'>
+    <view class='product-name'>{{product.name}}</view>
+    <view class='product-price'>￥ {{product.price}}</view>
+  </view>
+</view>
+<view class='comment-cnt'>
+  <!-- textarea组件，它能够帮助我们输入及读取相关的数据并保存。 -->
+  <!-- bindinput 属性，当文字输入框中的文字有变化时，则会调用 bindinput 对应的函数，这里呢，就是 onInput。 -->
+  <!-- 
+    我们的 onInput 函数，
+    通过 event.detail.value 取出了输入框的文字，
+    并使用字符处理函数，删除了文字前后的空格，
+    接着将文字的内容储存到 commentValue 变量中作为评论内容。
+   -->
+  <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='请填写你的评价' auto-focus maxlength='255' bindinput='onInput'></textarea>
+  <view class='preview-cnt' wx:if='{{commentImages.length}}'>
+    <image class='preview-image' wx:for='{{commentImages}}' wx:key='*this' src='{{item}}' mode='aspectFill' bindtap='previewImg' data-src='{{item}}'></image>
+  </view>
+  <image class='opr-upload' src='/images/image.png' bindtap='chooseImage'></image>
+</view>
+<view class="comment-btn {{!commentValue ? 'dis' : ''}}" bindtap="addComment">提交评价</view>
